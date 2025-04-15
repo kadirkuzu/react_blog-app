@@ -44,7 +44,7 @@ export const httpService = axios.create({
 
 // cache data interceptor
 httpService.interceptors.request.use((config) => {
-  if(config.method != 'get') return config
+  if(config.method !== 'get') return config
 
   const key = buildKey(config);
 
@@ -65,7 +65,7 @@ httpService.interceptors.request.use((config) => {
 });
 
 httpService.interceptors.response.use((response) => {
-  if(response.config.method != 'get') return response
+  if(response.config.method !== 'get') return response
   const key = buildKey(response.config);
   setCached(key, response.data);
   return response;

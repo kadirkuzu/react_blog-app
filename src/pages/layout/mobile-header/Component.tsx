@@ -1,25 +1,23 @@
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state';
+import { AuthService } from '../../../services/auth-service';
 import styles from './Component.module.css';
+import * as bootstrap from 'bootstrap';
 
-declare const bootstrap: any;
 
 const MobileHeader = () => {
   const navigate = useNavigate();
-
-  const user = {
-    fullName: 'Kadir Kuzu',
-    userName: 'kadirk',
-  };
-
-  const logout = () => {
-    console.log('logout');
-  };
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const closeMenu = () => {
-    const offcanvasEl = document.getElementById('sideBarCanvas');
-    if (offcanvasEl) {
-      bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl).hide();
+    const el = document.getElementById('sideBarCanvas');
+    if (el) {
+      bootstrap.Offcanvas.getOrCreateInstance(el).hide();
     }
+  
+    document.querySelectorAll('.offcanvas-backdrop')?.forEach(el => el.remove());
+    document.body.classList.remove('offcanvas-backdrop', 'modal-open');
   };
 
   const handleNavigate = (path: string) => {
@@ -27,10 +25,15 @@ const MobileHeader = () => {
     navigate(path);
   };
 
+  const logout = () => {
+    closeMenu();
+    AuthService.logout();
+  };
+
   return (
     <>
       <div
-        className={`${styles.bar}`}
+        className={styles.bar}
         data-bs-toggle="offcanvas"
         data-bs-target="#sideBarCanvas"
         aria-controls="sideBarCanvas"
@@ -40,36 +43,54 @@ const MobileHeader = () => {
         <div className={styles.bar3}></div>
       </div>
 
-      {/* Bootstrap class'ları ayrı, module stilini ekliyoruz */}
       <div className={`offcanvas offcanvas-start ${styles.offcanvas}`} id="sideBarCanvas" tabIndex={-1}>
         <div className="offcanvas-header">
-          <div className={`d-flex align-items-center ${styles.userInfoWrapper}`}>
-            <img
-              src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.fullName}`}
-              height="50"
-              alt="profile"
-              className="rounded-circle"
-            />
-            <div className={`${styles.userInfo} text-white ms-3`}>
-              <div>{user.fullName}</div>
-              <div>@{user.userName}</div>
+          {user ? (
+            <div className={`d-flex align-items-center ${styles.userInfoWrapper}`}>
+              <img
+                src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.fullName}`}
+                height="50"
+                alt="profile"
+                className="rounded-circle"
+              />
+              <div className={`${styles.userInfo} text-white ms-3`}>
+                <div>{user.fullName}</div>
+                <div>@{user.userName}</div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="text-white fw-bold">Hoş Geldiniz</div>
+          )}
 
-          <button className={`btn-close text-reset ${styles.iconClose}`} data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <button
+            className={`btn-close text-reset ${styles.iconClose}`}
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
         </div>
 
         <div className="offcanvas-body d-flex flex-column">
           <div className="sidebar-link">
-            <div className={`${styles.offcanvasRoute}`} onClick={() => handleNavigate('/chats')}>Chats</div>
-            <div className={`${styles.offcanvasRoute}`} onClick={() => handleNavigate('/friends')}>Friends</div>
-            <div className={`${styles.offcanvasRoute} borderless`} onClick={() => handleNavigate('/profile')}>Profile</div>
+            <div className={styles.offcanvasRoute} onClick={() => handleNavigate('/blogs')}>
+              Bloglar
+            </div>
+            {user && (
+              <div className={styles.offcanvasRoute} onClick={() => handleNavigate('/create')}>
+                Yeni Blog
+              </div>
+            )}
           </div>
 
           <div className="mt-auto text-end">
-            <button className="btn btn-danger" onClick={() => { closeMenu(); logout(); }}>
-              Logout
-            </button>
+            {user ? (
+              <button className="btn btn-danger" onClick={logout}>
+                Çıkış Yap
+              </button>
+            ) : (
+              <button className="btn btn-outline-light" onClick={() => handleNavigate('/login')}>
+                Giriş Yap
+              </button>
+            )}
           </div>
         </div>
       </div>
