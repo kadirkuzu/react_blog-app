@@ -1,26 +1,17 @@
 import { Link, useLocation } from 'react-router-dom';
 import MobileHeader from '../mobile-header/Component';
 import styles from './Component.module.css';
-
-interface User {
-  fullName: string;
-  userName: string;
-  hasPhoto: boolean;
-  id: string;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../state';
+import { authActions } from '../../../state/slices/auth-slice';
 
 const Header = () => {
   const location = useLocation();
-
-  const user: User = {
-    fullName: 'Kadir Kuzu',
-    userName: 'kadirk',
-    hasPhoto: true,
-    id: '1',
-  };
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch();
 
   const logout = () => {
-    console.log('logout');
+    dispatch(authActions.logout());
   };
 
   return (
@@ -29,41 +20,54 @@ const Header = () => {
         <header className={styles.appHeader}>
           <Link to="/" className={styles.logo}>
             <img src="/logo192.png" alt="logo" />
-            Message Safely
+            <span>Blogs App</span>
           </Link>
 
           <div className={`d-flex justify-content-between align-items-center w-100 ${styles.desktopHeader}`}>
-            <div className={styles.routes}>
+          <div className={styles.routes}>
               <Link to="/blogs" className={`${styles.route} ${location.pathname === '/blogs' ? styles.activeLink : ''}`}>
                 Bloglar
               </Link>
-              <Link to="/create" className={`${styles.route} ${location.pathname === '/create' ? styles.activeLink : ''}`}>
-                Yeni Gönderi
-              </Link>
+              {
+                !!user && (
+                  <Link to="/create" className={`${styles.route} ${location.pathname === '/create' ? styles.activeLink : ''}`}>
+                    Yeni Gönderi
+                  </Link>
+                )
+              }
             </div>
-            <div className={`d-flex align-items-center ${styles.userInfoWrapper}`}>
-              <div className={`${styles.userInfo} text-white`}>
-                <div>{user.fullName}</div>
-                <div>@{user.userName}</div>
+
+            {user ? (
+              <div className={`d-flex align-items-center ${styles.userInfoWrapper}`}>
+                <div className={`${styles.userInfo} text-white`}>
+                  <div>{user.fullName}</div>
+                  <div>@{user.userName}</div>
+                </div>
+                <div className="dropdown">
+                  <span className="c-pointer" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img
+                      src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.fullName}`}
+                      height="50"
+                      alt="profile"
+                      className="rounded-circle"
+                    />
+                  </span>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <button className="dropdown-item text-danger" onClick={logout}>
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div className="dropdown">
-                <span className="c-pointer" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img
-                    src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.fullName}`}
-                    height="50"
-                    alt="profile"
-                    className="rounded-circle"
-                  />
-                </span>
-                <ul className="dropdown-menu">
-                  <li>
-                    <button className="dropdown-item text-danger" onClick={logout}>
-                      Logout
-                    </button>
-                  </li>
-                </ul>
+            ) : (
+              <div>
+                <Link to="/login" className="btn btn-outline-light">
+                  Giriş Yap
+                </Link>
               </div>
-            </div>
+            )}
           </div>
 
           <div className={styles.mobileHeader}>

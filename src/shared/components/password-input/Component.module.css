@@ -1,0 +1,14 @@
+.inputContainer {
+    position: relative;
+}
+
+.toggleText {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: var(--dark-placeholder-color);
+    cursor: pointer;
+    user-select: none;
+}

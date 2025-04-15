@@ -1,0 +1,38 @@
+input,
+textarea {
+  box-shadow: none !important;
+  border-radius: var(--form-border-radius) !important;
+  font-size: var(--input-font-size) !important;
+  background-color: var(--secondary-color) !important;
+  border-color: var(--dark-placeholder-color) !important;
+  color: var(--white) !important;
+  background-image: none !important;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--white) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--dark-placeholder-color) !important;
+}
+
+input {
+  height: var(--form-height) !important;
+}
+
+textarea {
+  width: 100%;
+  resize: none !important;
+  max-height: 150px;
+  padding: 10px;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  color: var(--white);
+}

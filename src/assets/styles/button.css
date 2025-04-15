@@ -1,0 +1,7 @@
+button {
+    min-width: 120px;
+    height: var(--form-height) !important;
+    border-radius: var(--form-border-radius) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+  }

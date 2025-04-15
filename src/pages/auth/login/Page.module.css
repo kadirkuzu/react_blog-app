@@ -1,0 +1,15 @@
+.loginPage {
+    width: 100%;
+    height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pageContainer {
+    background-color: var(--secondary-color);
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+}
