@@ -5,8 +5,8 @@ const TTL = 30 * 60 * 1000;
 
 const buildKey = (config: AxiosRequestConfig): string => {
   const url = config.url || '';
-  const params = config.params ? JSON.stringify(config.params) : '';
-  return `${url}?${params}`;
+  const params = config.params ? '?' + JSON.stringify(config.params) : '';
+  return `${url}${params}`;
 };
 
 const getCached = (key: string) => {
@@ -75,7 +75,7 @@ export const clearCacheForKey = (key: string) => {
   sessionStorage.removeItem(key);
 };
 
-export const buildCacheKey = (url: string, method = 'get', params?: any) => {
+export const buildCacheKey = (url: string, params?: any) => {
   const paramString = params ? `?${JSON.stringify(params)}` : '';
-  return `${method.toLowerCase()}:${url}${paramString}`;
+  return `${url}${paramString}`;
 };
