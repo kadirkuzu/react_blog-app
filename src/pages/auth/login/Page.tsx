@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './Page.module.css';
-import { authActions } from '../../../state/slices/auth-slice';
 import PasswordInput from '../../../shared/components/password-input/Component';
+import { AuthService } from '../../../state/auth/service';
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -14,16 +12,7 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    dispatch(
-      authActions.login({
-        id: '1',
-        fullName: 'Kadir Kuzu',
-        userName: email.split('@')[0]
-      })
-    );
-
-    navigate('/blogs');
+    AuthService.login(email, password, navigate);
   };
 
   return (
@@ -34,7 +23,6 @@ const Login = () => {
           <div className="mb-3">
             <label htmlFor="email" className="input-label">E-posta</label>
             <input
-              type="email"
               id="email"
               placeholder="E-posta adresinizi girin"
               className="form-control"

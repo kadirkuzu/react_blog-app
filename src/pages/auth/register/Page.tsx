@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './Page.module.css';
-import { authActions } from '../../../state/slices/auth-slice';
 import PasswordInput from '../../../shared/components/password-input/Component';
+import { AuthService } from '../../../state/auth/service';
 
 const Register = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [userName, setUserName] = useState('');
@@ -18,13 +16,7 @@ const Register = () => {
   const createAccount = (e: React.FormEvent) => {
     e.preventDefault();
 
-    dispatch(
-      authActions.login({
-        id: '2',
-        fullName,
-        userName,
-      })
-    );
+    AuthService.register(fullName, userName, email, password, navigate);
 
     navigate('/blogs');
   };

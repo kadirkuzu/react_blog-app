@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "kadir@example.com",
+      "password": "123456",
+      "fullName": "Kadir Kuzu",
+      "userName": "kadirk"
+    },
+    {
+      "id": "1744754277249",
+      "email": "aksdkasdk@gmail.com",
+      "fullName": "asdasd",
+      "userName": "adsasd",
+      "password": "123456"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "1",
+      "title": "Merhaba Dünya",
+      "content": "Bu ilk blog yazısıdır.",
+      "author": "Kadir Kuzu",
+      "createdAt": "2025-04-15T22:00:00Z"
+    }
+  ]
+}

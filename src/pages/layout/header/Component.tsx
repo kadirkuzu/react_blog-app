@@ -1,17 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
 import MobileHeader from '../mobile-header/Component';
 import styles from './Component.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../state';
-import { authActions } from '../../../state/slices/auth-slice';
+import { AuthService } from '../../../state/auth/service';
 
 const Header = () => {
   const location = useLocation();
   const user = useSelector((state: RootState) => state.auth.user);
-  const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(authActions.logout());
+    AuthService.logout()
   };
 
   return (
@@ -31,7 +30,7 @@ const Header = () => {
               {
                 !!user && (
                   <Link to="/create" className={`${styles.route} ${location.pathname === '/create' ? styles.activeLink : ''}`}>
-                    Yeni Gönderi
+                    Yeni Blog
                   </Link>
                 )
               }
