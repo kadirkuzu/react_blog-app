@@ -5,9 +5,8 @@ const TTL = 30 * 60 * 1000;
 
 const buildKey = (config: AxiosRequestConfig): string => {
   const url = config.url || '';
-  const method = config.method || 'get';
   const params = config.params ? JSON.stringify(config.params) : '';
-  return `${method}:${url}?${params}`;
+  return `${url}?${params}`;
 };
 
 const getCached = (key: string) => {
@@ -45,6 +44,8 @@ export const httpService = axios.create({
 
 // cache data interceptor
 httpService.interceptors.request.use((config) => {
+  if(config.method != 'get') return config
+
   const key = buildKey(config);
 
   const cached = getCached(key);
@@ -64,7 +65,17 @@ httpService.interceptors.request.use((config) => {
 });
 
 httpService.interceptors.response.use((response) => {
+  if(response.config.method != 'get') return response
   const key = buildKey(response.config);
   setCached(key, response.data);
   return response;
 });
+
+export const clearCacheForKey = (key: string) => {
+  sessionStorage.removeItem(key);
+};
+
+export const buildCacheKey = (url: string, method = 'get', params?: any) => {
+  const paramString = params ? `?${JSON.stringify(params)}` : '';
+  return `${method.toLowerCase()}:${url}${paramString}`;
+};

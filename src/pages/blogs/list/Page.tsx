@@ -9,6 +9,18 @@ const BlogList = () => {
   const blogs = useSelector((state: RootState) => state.blogs.blogs);
   const loading = useSelector((state: RootState) => state.blogs.loading);
 
+  const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleString('tr-TR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  };
+
   useEffect(() => {
     BlogService.getAll();
   }, []);
@@ -26,7 +38,7 @@ const BlogList = () => {
           <div key={blog.id} className="mb-4 p-3 border rounded bg-dark">
             <h4>{blog.title}</h4>
             <small className="text-secondary">
-              {new Date(blog.createdDate).toLocaleString()} — <strong><UserName id={blog.authorId} /></strong>
+              {formatDate(blog.createdDate)} — <strong><UserName id={blog.authorId} /></strong>
             </small>
             <p className="mt-2">{blog.content}</p>
           </div>
