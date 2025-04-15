@@ -1,4 +1,4 @@
-import axios from './common/axios';
+import { httpService } from './common/axios';
 import { NavigateFunction } from 'react-router-dom';
 import { store } from '../state';
 import { authActions } from '../state/auth-slice';
@@ -6,7 +6,7 @@ import { User } from '../models/user';
 
 export const AuthService = {
   async login(identifier: string, password: string, navigate: NavigateFunction) {
-    const { data: users } = await axios.get('/users');
+    const { data: users } = await httpService.get('/users');
 
     const user = users.find(
       (u: User) =>
@@ -24,7 +24,7 @@ export const AuthService = {
   },
 
   async register(fullName: string, userName: string, email: string, password: string, navigate: NavigateFunction) {
-    const { data: users } = await axios.get('/users');
+    const { data: users } = await httpService.get('/users');
 
     if (users.some((u: User) => u.email === email)) return alert('Bu e-posta zaten kullanılıyor.');
     if (users.some((u: User) => u.userName === userName)) return alert('Bu kullanıcı adı zaten alınmış.');
@@ -37,7 +37,7 @@ export const AuthService = {
       password,
     };
 
-    await axios.post('/users', newUser);
+    await httpService.post('/users', newUser);
 
     store.dispatch(authActions.login(newUser));
     navigate('/blogs');
