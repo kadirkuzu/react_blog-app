@@ -1,0 +1,80 @@
+.headerWrapper {
+  background-color: var(--secondary-color);
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.appHeader.mobile {
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-right: 20px;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 60px;
+}
+
+.routes {
+  border-left: 2px solid var(--dark-placeholder-color);
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.route {
+  color: var(--text-color);
+  font-size: 19px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.route:hover,
+.activeLink {
+  background-color: var(--background-color);
+}
+
+.userInfoWrapper {
+  gap: 20px;
+}
+
+.userInfo {
+  padding-right: 20px;
+  border-right: 2px solid var(--dark-placeholder-color);
+}
+
+.desktopHeader {
+  display: flex;
+}
+
+.mobileHeader {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .desktopHeader {
+    display: none !important;
+  }
+
+  .appHeader {
+    justify-content: space-between;
+  }
+
+  .mobileHeader {
+    display: block;
+  }
+}
