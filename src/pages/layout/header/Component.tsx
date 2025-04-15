@@ -3,7 +3,7 @@ import MobileHeader from '../mobile-header/Component';
 import styles from './Component.module.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state';
-import { AuthService } from '../../../state/auth/service';
+import { AuthService } from '../../../services/auth-service';
 
 const Header = () => {
   const location = useLocation();

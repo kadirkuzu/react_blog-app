@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './Page.module.css';
 import PasswordInput from '../../../shared/components/password-input/Component';
-import { AuthService } from '../../../state/auth/service';
+import { AuthService } from '../../../services/auth-service';
 
 const Login = () => {
   const navigate = useNavigate();

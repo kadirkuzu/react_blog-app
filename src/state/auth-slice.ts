@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../models/user';
+import { User } from '../models/user';
 
-interface AuthState {
+interface State {
   user: User | null;
 }
 
-const initialState: AuthState = {
-  user: null,
+const storedUser = localStorage.getItem('user');
+
+const initialState: State = {
+  user: storedUser ? JSON.parse(storedUser) : null,
 };
 
-const authSlice = createSlice({
+const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -22,5 +24,5 @@ const authSlice = createSlice({
   },
 });
 
-export const authActions = authSlice.actions;
-export default authSlice.reducer;
+export const authActions = slice.actions;
+export default slice.reducer;

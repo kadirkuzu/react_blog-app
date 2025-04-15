@@ -2,26 +2,61 @@
   "users": [
     {
       "id": "1",
-      "email": "kadir@example.com",
-      "password": "123456",
       "fullName": "Kadir Kuzu",
-      "userName": "kadirk"
+      "userName": "kadirk",
+      "email": "kadir@example.com",
+      "password": "123456"
     },
     {
-      "id": "1744754277249",
-      "email": "aksdkasdk@gmail.com",
-      "fullName": "asdasd",
-      "userName": "adsasd",
-      "password": "123456"
+      "id": "2",
+      "fullName": "User 2",
+      "userName": "user2",
+      "email": "user@example.com",
+      "password": "user123"
     }
   ],
   "blogs": [
     {
-      "id": "1",
-      "title": "Merhaba Dünya",
-      "content": "Bu ilk blog yazısıdır.",
-      "author": "Kadir Kuzu",
-      "createdAt": "2025-04-15T22:00:00Z"
+      "id": "101",
+      "title": "React Nedir?",
+      "content": "React, kullanıcı arayüzleri oluşturmak için kullanılan bir JavaScript kütüphanesidir.",
+      "authorId": "1",
+      "createdDate": "2025-04-14T12:30:00Z"
+    },
+    {
+      "id": "102",
+      "title": "Redux’a Giriş",
+      "content": "Redux, uygulamanızın durumunu merkezi bir yerde tutmak için kullanılır.",
+      "authorId": "1",
+      "createdDate": "2025-04-14T14:15:00Z"
+    },
+    {
+      "id": "103",
+      "title": "TypeScript ile Güçlü Kod",
+      "content": "TypeScript, JavaScript'e statik tip sistemi ekleyerek daha sağlam uygulamalar geliştirmenizi sağlar.",
+      "authorId": "2",
+      "createdDate": "2025-04-14T16:45:00Z"
+    },
+    {
+      "id": "104",
+      "title": "React Router Kullanımı",
+      "content": "React Router, SPA projelerinde sayfa yönlendirmelerini kontrol etmenizi sağlar.",
+      "authorId": "2",
+      "createdDate": "2025-04-15T09:00:00Z"
+    },
+    {
+      "id": "105",
+      "title": "Axios ile API Çağrısı",
+      "content": "Axios, REST API'lerle haberleşmeyi kolaylaştıran güçlü bir HTTP istemcisidir.",
+      "authorId": "1",
+      "createdDate": "2025-04-15T10:30:00Z"
+    },
+    {
+      "id": "106",
+      "title": "JSON Server ile Mock API",
+      "content": "Gerçek backend olmadan frontend geliştirmek için JSON Server harika bir çözümdür.",
+      "authorId": "2",
+      "createdDate": "2025-04-15T11:45:00Z"
     }
   ]
 }

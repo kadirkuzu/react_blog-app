@@ -1,8 +1,8 @@
-import axios from '../axios';
+import axios from './common/axios';
 import { NavigateFunction } from 'react-router-dom';
-import { store } from '..';
-import { authActions } from './auth-slice';
-import { User } from '../../models/user';
+import { store } from '../state';
+import { authActions } from '../state/auth-slice';
+import { User } from '../models/user';
 
 export const AuthService = {
   async login(identifier: string, password: string, navigate: NavigateFunction) {
@@ -15,6 +15,7 @@ export const AuthService = {
     );
 
     if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
       store.dispatch(authActions.login(user));
       navigate('/blogs');
     } else {
@@ -43,6 +44,7 @@ export const AuthService = {
   },
 
   logout() {
+    localStorage.removeItem('user');
     store.dispatch(authActions.logout());
   },
 };
